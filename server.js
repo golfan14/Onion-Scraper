@@ -26,20 +26,23 @@ app.get("/scrape", function (req, res) {
 
             result.title = $(this).children("a").text();
             result.link = $(this).children("a").attr("href");
+            console.log(result.title);
+            console.log(result.link);
+            console.log("==================");
 
-            db.Scraper.create(result)
-                .then(function (dbScraper) {
-                    console.log(dbScraper);
-                    return res.json(dbScraper);
-                })
-                .catch(function (err) {
-                    return res.json(err);
-                });
-            });    
+                // db.Scraper.create(result)
+                //     .then(function (dbScraper) {
+                //         console.log(dbScraper);
+                //         return res.json(dbScraper);
+                //     })
+                //     .catch(function (err) {
+                //         return res.json(err);
+                //     });
+                });    
+            });
+            res.send("Scrape Complete");
         });
-        res.send("Scrape Complete");
-    });
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
-    });    
+});    
