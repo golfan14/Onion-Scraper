@@ -35,7 +35,7 @@ app.set("view engine", "handlebars");
 
 
 app.get("/", function (req, res) {
-    db.Article.find().populate("comment").exec(function (error, data) {
+    db.Article.find({}, function (error, data) {
         if (error) {
             console.log(error);
         }
