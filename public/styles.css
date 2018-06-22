@@ -30,3 +30,7 @@ a {
 body {
     background-image: url("purty_wood.png");
 }
+
+.btn-sm {
+    margin-right: 10px;
+}

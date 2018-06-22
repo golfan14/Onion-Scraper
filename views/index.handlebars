@@ -1,19 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Onion Scraper</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" href="#">Onion Scraper</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">News That Will Bring You To Tears<span class="sr-only">(current)</span></a>
-      </li> 
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Refresh Articles</button>
-    </form>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">News That Will Bring You To Tears
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/scrape">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Refresh Articles</button>
+            </a>
+        </form>
+    </div>
 </nav>
 <img class="background" src="https://s-media-cache-ak0.pinimg.com/originals/a6/93/79/a69379938d91b636820652273abcadec.jpg">
 
@@ -21,38 +26,46 @@
 
 <ul>
     {{#each Article}}
-        <li>
-            <div class="card text-white bg-dark mb-3">
-                <div class="card-body">
-                    <h4><a href="{{this.link}}">{{this.title}}</a></h4>
-                    {{!-- <a href="url" class="card-text">"{{this.link}}"</a> --}}
-                    <!-- Button trigger modal -->
-                    <button type="button" id="comment" class="btn btn-secondary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
-                    Comments
-                    </button>
+    <li>
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-body">
+                <h4>
+                    <a href="{{this.link}}">{{this.title}}</a>
+                </h4>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- Button trigger modal -->
+                <button type="button" id="comment" class="btn btn-secondary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
+                    Add a Comment
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Leave a Comment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Leave a Comment</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control article-comment-input" id="{{this._id}}" placeholder="Comment" aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" action="/submit" method="post" data-id="{{this._id}}" class="btn btn-primary comment-save">Save changes</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
-        </li>
-    {{/each}}    
+        </div>
+    </li>
+    {{/each}}
 </ul>
+
+{{!--
+<input class="article-comment-input" id="{{this._id}}"> --}}

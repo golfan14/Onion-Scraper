@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
+var morgan = require("morgan");
 
 
 var db = require("./models");
@@ -15,6 +16,8 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+app.use(morgan("dev"));
+
 var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -24,7 +27,7 @@ mongoose.connect("mongodb://localhost/Scraper");
 
 
 app.get("/", function (req, res) {
-    db.Article.find({}, function (error, data) {
+    db.Article.find().populate("comment").exec(function (error, data) {
         if (error) {
             console.log(error);
         }
@@ -57,32 +60,28 @@ app.get("/scrape", function (req, res) {
                 });
         });
     });
-    res.send("Scrape Complete");
+    res.redirect("/");
 });
 
-app.get("/articles", function(req, res) {
-    db.Article.find({}, function(err, found) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.json(found);
-        }
-    })
-})
-
 app.post("/submit", function(req, res) {
-    // Create a new user using req.body
+    // Create a new Book in the database
     db.Comment.create(req.body)
       .then(function(dbComment) {
-        // If saved successfully, send the the new User document to the client
-        res.json(dbComment);
+        return db.Article.findOneAndUpdate({}, { $push: { comment: dbComment._id } }, { new: true });
+      })
+      .then(function(dbArticle) {
+        res.json(dbArticle);
       })
       .catch(function(err) {
-        // If an error occurs, send the error to the client
         res.json(err);
       });
   });
+
+
+
+    
+
+
 
 
 app.listen(PORT, function () {
