@@ -68,8 +68,10 @@ app.get("/scrape", function (req, res) {
                 });
         });
     });
-    res.redirect("/");
+    res.json(result);
 });
+
+// app.get("/articles", function())
 
 // app.post("/submit", function(req, res) {
 //     // Create a new Book in the database
