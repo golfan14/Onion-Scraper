@@ -21,22 +21,22 @@ console.log(saveButtons);
 
 
 
-$(document).on("click", "#.comment-save", function() {
-    var thisId = $(this).attr("data-id");
+// $(document).on("click", ".comment-save", function() {
+//     var thisId = $(this).attr("data-id");
 
-    $.ajax({
-        method: "POST",
-        url: "/articles/" + thisId,
-        data: {
-            body: $("#article-comment-input").val()
-        }
-    })
-    .then(function(data) {
-        console.log(data); 
-    })    
-});
+//     $.ajax({
+//         method: "POST",
+//         url: "/articles/" + thisId,
+//         data: {
+//             body: $("#article-comment-input").val()
+//         }
+//     })
+//     .then(function(data) {
+//         console.log(data); 
+//     })    
+// });
 
-$("#article-comment-input").val("");
+// $("#article-comment-input").val("");
 
 
 

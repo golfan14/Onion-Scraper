@@ -63,19 +63,19 @@ app.get("/scrape", function (req, res) {
     res.redirect("/");
 });
 
-app.post("/submit", function(req, res) {
-    // Create a new Book in the database
-    db.Comment.create(req.body)
-      .then(function(dbComment) {
-        return db.Article.findOneAndUpdate({}, { $push: { comment: dbComment._id } }, { new: true });
-      })
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+// app.post("/submit", function(req, res) {
+//     // Create a new Book in the database
+//     db.Comment.create(req.body)
+//       .then(function(dbComment) {
+//         return db.Article.findOneAndUpdate({}, { $push: { comment: dbComment._id } }, { new: true });
+//       })
+//       .then(function(dbArticle) {
+//         res.json(dbArticle);
+//       })
+//       .catch(function(err) {
+//         res.json(err);
+//       });
+//   });
 
 
 
